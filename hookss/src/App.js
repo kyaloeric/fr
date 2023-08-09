@@ -1,8 +1,7 @@
 import React from 'react';
 import Home from './Home';
 import Speakers from './Speakers';
-
-
+import { GlobalProvider } from './GlobalState';
 
 export const ConfigContext = React.createContext();
 
@@ -12,17 +11,17 @@ const pageToShow = (pageName) => {
   return <div>Not Found</div>;
 };
 
-
-// global config we can use without parsing properties over components to get them where we want 
 const configValue = {
+  showSignMeUp: true,
   showSpeakerSpeakingDays: true,
-  showSignMeUp: false,
 };
 
 const App = ({ pageName }) => {
   return (
     <ConfigContext.Provider value={configValue}>
-      <div>{pageToShow(pageName)}</div>
+      <GlobalProvider>
+        <div>{pageToShow(pageName)}</div>
+      </GlobalProvider>
     </ConfigContext.Provider>
   );
 };
